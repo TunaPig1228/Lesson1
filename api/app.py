@@ -12,3 +12,7 @@ def query():
     response = model.generate_content(query)
     # 处理接收到的数据（这里简单地将数据返回）
     return jsonify(response.text)
+
+@app.route('/',methods=["GET"])
+def test():
+    return 'success'
