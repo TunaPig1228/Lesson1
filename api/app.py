@@ -6,12 +6,13 @@ app = Flask(__name__)
 @app.route('/',methods=["POST"])
 def query():
     # 从请求中获取 JSON 数据
-    query = request.get_json()['query']
+    query = request.form.get('query')
     genai.configure(api_key = 'AIzaSyCv7-MKV9NqO6DqRXYu4GXysWeSnGBEijk')
     model = genai.GenerativeModel('gemini-pro')
     response = model.generate_content(query)
+    data_json = response.text
     # 处理接收到的数据（这里简单地将数据返回）
-    return response.text
+    return data_json
 
 @app.route('/',methods=["GET"])
 def test():
