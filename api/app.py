@@ -12,6 +12,7 @@ def chinese_to_arabic(chinese_number):
     chinese_number = ''.join(str(chinese_dict.get(char, char)) for char in chinese_number)
     chinese_number = chinese_number.replace(",", "")
     if not chinese_number.isdigit() and chinese_number:
+        print(chinese_number)
         for char in chinese_number:
             if char in big_unit_dict:
                 current_number = chinese_number.split(char)[0]
@@ -31,11 +32,11 @@ def chinese_to_arabic(chinese_number):
                 current_total += int(chinese_number.split(ch)[0]) * small_unit_dict[ch]
                 chinese_number = chinese_number.split(ch)[1]
         total += current_total
+        total = str(total)
+        if total.isdigit() and int(total)>1000:
+            total = str(int(total)/1000).replace(".0", "") + '仟'
     else:
         total = chinese_number
-    total = str(total)
-    if total.isdigit() and int(total)>1000:
-        total = str(int(total)/1000).replace(".0", "") + '仟'
 
     return total
 
