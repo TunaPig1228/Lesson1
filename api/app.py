@@ -60,7 +60,7 @@ def query():
     response = model.generate_content(query)
     data_json = response.text
     # 处理接收到的数据（这里简单地将数据返回）
-    return query
+    return data_json
 
 @app.route('/',methods=["GET"])
 def test():
