@@ -11,7 +11,7 @@ def chinese_to_arabic(chinese_number):
     current_total = 0
     chinese_number = ''.join(str(chinese_dict.get(char, char)) for char in chinese_number)
     chinese_number = chinese_number.replace(",", "")
-    if not chinese_number.isdigit():
+    if not chinese_number.isdigit() and chinese_number:
         for char in chinese_number:
             if char in big_unit_dict:
                 current_number = chinese_number.split(char)[0]
