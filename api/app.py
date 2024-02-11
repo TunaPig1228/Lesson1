@@ -33,7 +33,11 @@ def chinese_to_arabic(chinese_number):
         total += current_total
     else:
         total = chinese_number
-    return str(total)
+    total = str(total)
+    if total.isdigit() and int(total)>1000:
+        total = str(int(total)/1000).replace(".0", "") + '仟'
+
+    return total
 
 def find_and_convert_numbers(article):
     # 定义正则表达式，匹配包含阿拉伯数字和中文单位的数字
