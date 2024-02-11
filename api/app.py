@@ -10,29 +10,34 @@ def chinese_to_arabic(chinese_number):
     total = 0
     current_total = 0
     chinese_number = ''.join(str(chinese_dict.get(char, char)) for char in chinese_number)
-    for char in chinese_number:
-        if char in big_unit_dict:
-            current_number = chinese_number.split(char)[0]
-            chinese_number = chinese_number.split(char)[1]
-            if current_number.isdigit():
-                total += int(current_number) * big_unit_dict[char]
-            else:
-                for ch in current_number:
-                    if ch in small_unit_dict:
-                        current_total += int(current_number.split(ch)[0]) * small_unit_dict[ch]
-                        current_number = current_number.split(ch)[1]
-                total += current_total * big_unit_dict[char]
-    current_total = 0
-    for ch in chinese_number:
-        if ch in small_unit_dict:
-            current_total += int(chinese_number.split(ch)[0]) * small_unit_dict[ch]
-            chinese_number = chinese_number.split(ch)[1]
-    total += current_total
+    chinese_number = chinese_number.replace(",", "")
+    if not chinese_number.isdigit():
+        for char in chinese_number:
+            if char in big_unit_dict:
+                current_number = chinese_number.split(char)[0]
+                chinese_number = chinese_number.split(char)[1]
+                if current_number.isdigit():
+                    total += int(current_number) * big_unit_dict[char]
+                else:
+                    for ch in current_number:
+                        if ch in small_unit_dict:
+                            current_total += int(current_number.split(ch)[0]) * small_unit_dict[ch]
+                            current_number = current_number.split(ch)[1]
+                    total += current_total * big_unit_dict[char]
+        print(total)
+        current_total = 0
+        for ch in chinese_number:
+            if ch in small_unit_dict:
+                current_total += int(chinese_number.split(ch)[0]) * small_unit_dict[ch]
+                chinese_number = chinese_number.split(ch)[1]
+        total += current_total
+    else:
+        total = chinese_number
     return str(total)
 
 def find_and_convert_numbers(article):
     # 定义正则表达式，匹配包含阿拉伯数字和中文单位的数字
-    regex = re.compile(r'([零一二三四五六七八九壹貳參叁肆駟伍陸柒捌玖\d,]+[兆億萬千仟百佰拾十\d]+)+')
+    regex = re.compile(r'(?:[零一二三四五六七八九壹貳參叁肆駟伍陸柒捌玖\d,]+[兆億萬千仟百佰拾十]*)+')
 
     # 在文本中搜索匹配的数字
     matches = regex.findall(article)
