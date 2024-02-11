@@ -55,6 +55,7 @@ def query():
     # 从请求中获取 JSON 数据
     query = request.form.get('query')
     query = find_and_convert_numbers(query)
+    print(query)
     genai.configure(api_key = 'AIzaSyCv7-MKV9NqO6DqRXYu4GXysWeSnGBEijk')
     model = genai.GenerativeModel('gemini-pro')
     response = model.generate_content(query)
