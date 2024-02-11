@@ -40,7 +40,7 @@ def find_and_convert_numbers(article):
     if matches:
         for match in matches:
             arabic_number = chinese_to_arabic(match)
-            article.replace(match, arabic_number)
+            article = article.replace(match, arabic_number)
     return article
     
 app = Flask(__name__)
