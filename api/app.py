@@ -2,6 +2,13 @@ from flask import Flask, request
 import google.generativeai as genai
 import re
 
+def is_float(string):
+    try:
+        float_value = float(string)
+        return True
+    except ValueError:
+        return False
+        
 def chinese_to_arabic(chinese_number):
     chinese_dict = {'零': 0,'一': 1,'二': 2,'三': 3,'四': 4,'五': 5,'六': 6,'七': 7,'八': 8,'九': 9,'壹': 1,'貳': 2,'參': 3,'叁': 3,'肆': 4,'駟': 4,'伍': 5,'陸': 6,'柒': 7,'捌': 8,'玖': 9}
     big_unit_dict = {'萬': 10000, '億': 100000000, '兆': 1000000000000}
