@@ -48,6 +48,9 @@ def chinese_to_arabic(chinese_number):
 def find_and_convert_numbers(article):
     # 定义正则表达式，匹配包含阿拉伯数字和中文单位的数字
     regex = re.compile(r'(?:[零一二三四五六七八九壹貳參叁肆駟伍陸柒捌玖\d]+[,.]*[兆億萬千仟百佰拾十]*)+')
+    replace_text_dict = {'營業損益': '營業收入'}
+    for key, value in replace_text_dict.items():
+        article.replace(key, value)
     article = article.replace(",", "")
     # 在文本中搜索匹配的数字
     matches = regex.findall(article)
