@@ -11,30 +11,28 @@ def chinese_to_arabic(chinese_number):
     current_total = 0
     chinese_number = ''.join(str(chinese_dict.get(char, char)) for char in chinese_number)
     chinese_number = chinese_number.replace(",", "")
-    if not chinese_number.isdigit() and chinese_number:
-        print(chinese_number)
+    if not is_float(chinese_number) and chinese_number:
         for char in chinese_number:
             if char in big_unit_dict:
                 current_number = chinese_number.split(char)[0]
                 chinese_number = chinese_number.split(char)[1]
-                if current_number.isdigit():
-                    total += int(current_number) * big_unit_dict[char]
+                if is_float(current_number):
+                    total += float(current_number) * big_unit_dict[char]
                 else:
                     for ch in current_number:
                         if ch in small_unit_dict:
-                            current_total += int(current_number.split(ch)[0]) * small_unit_dict[ch]
+                            current_total += float(current_number.split(ch)[0]) * small_unit_dict[ch]
                             current_number = current_number.split(ch)[1]
                     total += current_total * big_unit_dict[char]
-        print(total)
         current_total = 0
         for ch in chinese_number:
             if ch in small_unit_dict:
-                current_total += int(chinese_number.split(ch)[0]) * small_unit_dict[ch]
+                current_total += float(chinese_number.split(ch)[0]) * small_unit_dict[ch]
                 chinese_number = chinese_number.split(ch)[1]
         total += current_total
         total = str(total)
-        if total.isdigit() and int(total)>1000:
-            total = str(int(total)/1000).replace(".0", "") + '仟'
+        if is_float(total) and float(total)>1000:
+            total = str(round(float(total)/1000, 1)).replace(".0", "") + '仟'
     else:
         total = chinese_number
 
