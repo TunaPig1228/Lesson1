@@ -115,7 +115,7 @@ def get_quarter_data():
                 for key in need_keys:
                     value = tree.xpath(f'//td[contains(text(), "{key}")]/following-sibling::td[1]')[0].text.replace(',', '')
                     if is_float(value):
-                        need_dict[key] = round(float(value), 2)
+                        need_dict[key] = str(round(float(value), 2))
                     else:
                         need_dict[key] = ''
                 return need_dict
