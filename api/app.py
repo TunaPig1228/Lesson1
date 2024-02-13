@@ -2,6 +2,7 @@ from flask import Flask, request
 import google.generativeai as genai
 import re
 import requests
+from lxml import html
 
 def is_float(string):
     try:
