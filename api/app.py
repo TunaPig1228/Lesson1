@@ -97,7 +97,31 @@ def get_quarter_data():
 
     history_quarter = {'pre_quarter': pre_quarter, 'pre_year_quarter': pre_year_quarter}
     history_quarter_value = {'pre_quarter': '', 'sum_pre_quarter': '', 'pre_year_quarter': '', 'sum_pre_year_quarter': ''}
-    
+    url = 'https://mops.twse.com.tw/mops/web/ajax_t163sb01'
+
+    def get_sum_quarter_data(yy, mm):
+        for _ in range(2):
+            need_keys = ['營業收入', '營業毛利', '營業利益', '每股盈餘']
+            need_dict = {'營業收入': '', '營業毛利': '', '營業利益': '', '每股盈餘': ''}
+            data = {
+                'firstin': '1',
+                'co_id': code,
+                'year': yy,
+                'season': mm
+            }
+            res = requests.post(url, data=data)
+            tree = html.fromstring(res.text)
+            try:
+                for key in need_keys:
+                    value = tree.xpath(f'//td[contains(text(), "{key}")]/following-sibling::td[1]')[0].text.replace(',', '')
+                    if is_float(value):
+                        need_dict[key] = round(float(value), 2)
+                    else:
+                        need_dict[key] = ''
+                return need_dict
+            except:
+                continue
+        return need_dict
     return history_quarter_value
 
 @app.route('/',methods=["GET"])
