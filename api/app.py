@@ -122,7 +122,7 @@ def get_quarter_data():
             except:
                 continue
         return need_dict
-    return history_quarter_value
+    return current_ym
 
 @app.route('/',methods=["GET"])
 def test():
