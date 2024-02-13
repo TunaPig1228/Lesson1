@@ -122,6 +122,12 @@ def get_quarter_data():
             except:
                 continue
         return need_dict
+    for quarter_name, quarter in history_quarter.items():
+        sum_quarter_data_dict = get_sum_quarter_data(str(quarter['y']).zfill(3), str(quarter['m']).zfill(2))
+        if quarter['m'] == 1:
+            history_quarter_value[quarter_name] = sum_quarter_data_dict
+        else:
+            history_quarter_value['sum_' + quarter_name] = sum_quarter_data_dict
     return current_ym
 
 @app.route('/',methods=["GET"])
