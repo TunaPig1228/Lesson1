@@ -109,20 +109,33 @@ def get_quarter_data():
                 'firstin': '1',
                 'co_id': code,
                 'year': yy,
-                'season': mm
+                'season': mm,
+                'check2858': 'Y'
             }
             res = requests.post(url, data=data)
             tree = html.fromstring(res.text)
             try:
                 for key in need_keys:
-                    value = tree.xpath(f'//td[contains(text(), "{key}")]/following-sibling::td[1]')[0].text.replace(',', '')
-                    if is_float(value):
-                        need_dict[key] = round(float(value), 2)
-                    else:
-                        need_dict[key] = ''
+                    change_words_dict = {
+                        '營業收入': ['營業收入', '收益'],
+                        '營業毛利': ['營業毛利'],
+                        '營業利益': ['營業利益'],
+                        '每股盈餘': ['每股盈餘']
+                    }
+                    for variable_key in change_words_dict[key]:
+                        ele = tree.xpath(f'//td[contains(text(), "{variable_key}")]/following-sibling::td[1]')
+                        if ele:
+                            value = ele[0].text.replace(',', '')
+                            if is_float(value):
+                                need_dict[key] = round(float(value), 2)
+                            else:
+                                need_dict[key] = ''
+                            break
+                
                 return need_dict
             except:
                 continue
+        
         return need_dict
 
     for quarter_name, quarter in history_quarter.items():
