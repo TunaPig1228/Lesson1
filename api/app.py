@@ -63,8 +63,8 @@ def find_and_convert_numbers(article):
     
 app = Flask(__name__)
 
-@app.route('/',methods=["POST"])
-def query():
+@app.route('/fast_data',methods=["POST"])
+def fast_data():
     # 从请求中获取 JSON 数据
     query = request.form.get('query')
     query = find_and_convert_numbers(query)
@@ -74,6 +74,65 @@ def query():
     data_json = response.text
     # 处理接收到的数据（这里简单地将数据返回）
     return data_json
+
+@app.route('/get_quarter_data',methods=["POST"])
+def get_quarter_data():
+    # 从请求中获取 JSON 数据
+    code = request.form.get('code')
+    current_ym = {'y': int(request.form.get('y')), 'm': int(request.form.get('m'))}
+    pre_quarter = current_ym
+    pre_year_quarter = current_ym
+    if current_ym['m'] == 1:
+        pre_quarter = {'y': current_ym['y']-1, 'm': 4}
+        pre_year_quarter = {'y': current_ym['y']-1, 'm': 1}
+    elif current_ym['m'] == 2:
+        pre_quarter = {'y': current_ym['y'], 'm': 1}
+        pre_year_quarter = {'y': current_ym['y']-1, 'm': 2}
+    elif current_ym['m'] == 3:
+        pre_quarter = {'y': current_ym['y'], 'm': 2}
+        pre_year_quarter = {'y': current_ym['y']-1, 'm': 3}
+    elif current_ym['m'] == 4:
+        pre_quarter = {'y': current_ym['y'], 'm': 3}
+        pre_year_quarter = {'y': current_ym['y']-1, 'm': 4}
+    
+    history_quarter = {'pre_quarter': pre_quarter, 'pre_year_quarter': pre_year_quarter}
+    history_quarter_value = {'pre_quarter': '', 'sum_pre_quarter': '', 'pre_year_quarter': '', 'sum_pre_year_quarter': ''}
+    url = 'https://mops.twse.com.tw/mops/web/ajax_t163sb01'
+
+    def get_sum_quarter_data(yy, mm):
+        for _ in range(2):
+            need_keys = ['營業收入', '營業毛利', '營業利益', '每股盈餘']
+            need_dict = {'營業收入': '', '營業毛利': '', '營業利益': '', '每股盈餘': ''}
+            data = {
+                'firstin': '1',
+                'co_id': code,
+                'year': yy,
+                'season': mm
+            }
+            res = requests.post(url, data=data)
+            tree = html.fromstring(res.text)
+            try:
+                for key in need_keys:
+                    value = tree.xpath(f'//td[contains(text(), "{key}")]/following-sibling::td[1]')[0].text.replace(',', '')
+                    if is_float(value):
+                        need_dict[key] = round(float(value), 2)
+                    else:
+                        need_dict[key] = ''
+                    return need_dict
+            except:
+                continue
+        return need_dict
+
+    for quarter_name, quarter in history_quarter.items():
+        sum_quarter_data_dict = get_sum_quarter_data(str(quarter['y']).zfill(3), str(quarter['m']).zfill(2))
+        if quarter['m'] == 1:
+            history_quarter_value[quarter_name] = sum_quarter_data_dict
+        else:
+            history_quarter_value['sum_' + quarter_name] = sum_quarter_data_dict
+            quarter_data_dict = get_sum_quarter_data(str(quarter['y']).zfill(3), str(quarter['m']-1).zfill(2))
+            quarter_data_dict = {key: round(sum_quarter_data_dict[key] - quarter_data_dict[key], 2) for key in sum_quarter_data_dict if quarter_data_dict[key] and sum_quarter_data_dict[key]}
+            history_quarter_value[quarter_name] = quarter_data_dict
+    return history_quarter_value
 
 @app.route('/',methods=["GET"])
 def test():
