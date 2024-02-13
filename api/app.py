@@ -100,35 +100,25 @@ def get_quarter_data():
     url = 'https://mops.twse.com.tw/mops/web/ajax_t163sb01'
 
     def get_sum_quarter_data(yy, mm):
-        for _ in range(2):
-            need_keys = ['營業收入', '營業毛利', '營業利益', '每股盈餘']
-            need_dict = {'營業收入': '', '營業毛利': '', '營業利益': '', '每股盈餘': ''}
-            data = {
-                'firstin': '1',
-                'co_id': code,
-                'year': yy,
-                'season': mm
-            }
-            res = requests.post(url, data=data)
-            tree = html.fromstring(res.text)
-            try:
-                for key in need_keys:
-                    value = tree.xpath(f'//td[contains(text(), "{key}")]/following-sibling::td[1]')[0].text.replace(',', '')
-                    if is_float(value):
-                        need_dict[key] = str(round(float(value), 2))
-                    else:
-                        need_dict[key] = ''
-                return need_dict
-            except:
-                continue
-        return need_dict
+        need_keys = ['營業收入', '營業毛利', '營業利益', '每股盈餘']
+        need_dict = {'營業收入': '', '營業毛利': '', '營業利益': '', '每股盈餘': ''}
+        data = {
+            'firstin': '1',
+            'co_id': code,
+            'year': yy,
+            'season': mm
+        }
+        res = requests.post(url, data=data)
+        tree = html.fromstring(res.text)
+        return res.text
+        
     for quarter_name, quarter in history_quarter.items():
         sum_quarter_data_dict = get_sum_quarter_data(str(quarter['y']).zfill(3), str(quarter['m']).zfill(2))
         if quarter['m'] == 1:
             history_quarter_value[quarter_name] = sum_quarter_data_dict
         else:
             history_quarter_value['sum_' + quarter_name] = sum_quarter_data_dict
-    return current_ym
+    return sum_quarter_data_dict
 
 @app.route('/',methods=["GET"])
 def test():
