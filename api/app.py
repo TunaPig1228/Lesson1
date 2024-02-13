@@ -95,7 +95,7 @@ def get_quarter_data():
         pre_quarter = {'y': current_ym['y'], 'm': 3}
         pre_year_quarter = {'y': current_ym['y']-1, 'm': 4}
 
-    history_quarter = {'pre_quarter': pre_quarter, 'pre_year_quarter': pre_year_quarter}
+    history_quarter = {'pre_quarter': pre_quarter}
     history_quarter_value = {'pre_quarter': '', 'sum_pre_quarter': '', 'pre_year_quarter': '', 'sum_pre_year_quarter': ''}
     url = 'https://mops.twse.com.tw/mops/web/ajax_t163sb01'
 
