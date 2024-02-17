@@ -84,6 +84,7 @@ def get_sum_quarter_data(yy, mm, code):
         need_dict = {'營業收入': '', '營業毛利': '', '營業利益': '', '每股盈餘': ''}
         data = {
             'firstin': '1',
+            'TYPEK': 'all',
             'co_id': code,
             'year': yy,
             'season': mm,
