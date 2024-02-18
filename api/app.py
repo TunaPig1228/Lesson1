@@ -110,11 +110,13 @@ def get_sum_quarter_data(yy, mm, code):
                             need_dict[key] = ''
                         break
             
-            need_dict.update({'有無資料' : 'Y'})
-            return need_dict
-        except:
             if '查詢無資料' in res.text:
                 need_dict.update({'有無資料' : 'N'})
+            else:
+                need_dict.update({'有無資料' : 'Y'})
+            return need_dict
+        except:
+            continue
     
     return need_dict
 
@@ -172,7 +174,7 @@ def get_pre_year_quarter_data():
         else:
             history_quarter_value['sum_' + quarter_name] = sum_quarter_data_dict
             quarter_data_dict = get_sum_quarter_data(str(quarter['y']).zfill(3), str(quarter['m']-1).zfill(2), code)
-            quarter_data_dict = {key: round(sum_quarter_data_dict[key] - quarter_data_dict[key], 2) for key in sum_quarter_data_dict if quarter_data_dict[key] and sum_quarter_data_dict[key]}
+            quarter_data_dict = {key: round(sum_quarter_data_dict[key] - quarter_data_dict[key], 2) for key in sum_quarter_data_dict if isinstance(quarter_data_dict[key], float) and isinstance(sum_quarter_data_dict[key], float)}
             history_quarter_value[quarter_name] = quarter_data_dict
     return history_quarter_value
 
