@@ -110,9 +110,11 @@ def get_sum_quarter_data(yy, mm, code):
                             need_dict[key] = ''
                         break
             
+            need_dict.update({'有無資料' : 'Y'})
             return need_dict
         except:
-            continue
+            if '查詢無資料' in res.text:
+                need_dict.update({'有無資料' : 'N'})
     
     return need_dict
 
