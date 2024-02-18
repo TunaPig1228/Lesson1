@@ -79,7 +79,7 @@ def fast_data():
 
 def get_sum_quarter_data(yy, mm, code):
     url = 'https://mops.twse.com.tw/mops/web/ajax_t163sb01'
-    for _ in range(2):
+    for _ in range(3):
         need_keys = ['營業收入', '營業毛利', '營業利益', '每股盈餘']
         need_dict = {'營業收入': '', '營業毛利': '', '營業利益': '', '每股盈餘': ''}
         data = {
