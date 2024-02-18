@@ -145,7 +145,7 @@ def get_pre_quarter_data():
         else:
             history_quarter_value['sum_' + quarter_name] = sum_quarter_data_dict
             quarter_data_dict = get_sum_quarter_data(str(quarter['y']).zfill(3), str(quarter['m']-1).zfill(2), code)
-            quarter_data_dict = {key: round(sum_quarter_data_dict[key] - quarter_data_dict[key], 2) for key in sum_quarter_data_dict if quarter_data_dict[key] and sum_quarter_data_dict[key]}
+            quarter_data_dict = {key: round(sum_quarter_data_dict[key] - quarter_data_dict[key], 2) for key in sum_quarter_data_dict if isinstance(quarter_data_dict[key], float) and isinstance(sum_quarter_data_dict[key], float)}
             history_quarter_value[quarter_name] = quarter_data_dict
     return history_quarter_value
 
