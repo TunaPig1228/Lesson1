@@ -83,8 +83,18 @@ def get_sum_quarter_data(yy, mm, code):
         need_keys = ['營業收入', '營業毛利', '營業利益', '每股盈餘']
         need_dict = {'營業收入': '', '營業毛利': '', '營業利益': '', '每股盈餘': ''}
         data = {
+            'encodeURIComponent': '1',
+            'step': '1',
             'firstin': '1',
+            'off': '1',
+            'keyword4': '',
+            'code1': '',
+            'TYPEK2': '',
+            'checkbtn': '',
+            'queryName': 'co_id',
+            'inpuType': 'co_id',
             'TYPEK': 'all',
+            'isnew': 'false',
             'co_id': code,
             'year': yy,
             'season': mm,
