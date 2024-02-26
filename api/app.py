@@ -129,7 +129,7 @@ def get_sum_quarter_data(yy, mm, code):
                         break
             if '查詢無資料' in res.text or '財務報表公告項目尚未申報' in res.text:
                 need_dict.update({'有無資料' : 'N'})
-            elif need_dict['每股盈餘']:
+            elif need_dict['每股盈餘'] != '':
                 need_dict.update({'有無資料' : 'Y'})
             else:
                 continue
