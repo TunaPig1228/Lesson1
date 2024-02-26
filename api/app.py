@@ -79,9 +79,17 @@ def fast_data():
 
 def get_sum_quarter_data(yy, mm, code):
     url = 'https://mops.twse.com.tw/mops/web/ajax_t163sb01'
-    for _ in range(3):
+    for _ in range(2):
         need_keys = ['營業收入', '營業毛利', '營業利益', '每股盈餘']
         need_dict = {'營業收入': '', '營業毛利': '', '營業利益': '', '每股盈餘': ''}
+        data = {
+            'firstin': '1',
+            'TYPEK': 'all',
+            'co_id': code,
+            'year': yy,
+            'season': mm,
+            'check2858': 'Y'
+        }
         data = {
             'encodeURIComponent': '1',
             'step': '1',
@@ -119,8 +127,7 @@ def get_sum_quarter_data(yy, mm, code):
                         else:
                             need_dict[key] = ''
                         break
-            
-            if '查詢無資料' in res.text:
+            if '查詢無資料' in res.text or '財務報表公告項目尚未申報' in res.text:
                 need_dict.update({'有無資料' : 'N'})
             elif need_dict['每股盈餘']:
                 need_dict.update({'有無資料' : 'Y'})
@@ -129,7 +136,6 @@ def get_sum_quarter_data(yy, mm, code):
             return need_dict
         except:
             continue
-    
     return need_dict
 
 @app.route('/get_pre_quarter_data',methods=["POST"])
@@ -157,7 +163,7 @@ def get_pre_quarter_data():
         else:
             history_quarter_value['sum_' + quarter_name] = sum_quarter_data_dict
             quarter_data_dict = get_sum_quarter_data(str(quarter['y']).zfill(3), str(quarter['m']-1).zfill(2), code)
-            quarter_data_dict = {key: round(sum_quarter_data_dict[key] - quarter_data_dict[key], 2) for key in sum_quarter_data_dict if isinstance(quarter_data_dict[key], float) and isinstance(sum_quarter_data_dict[key], float)}
+            quarter_data_dict = {key: round(sum_quarter_data_dict[key] - quarter_data_dict[key], 2) if isinstance(quarter_data_dict[key], float) and isinstance(sum_quarter_data_dict[key], float) else quarter_data_dict[key] for key in sum_quarter_data_dict}
             history_quarter_value[quarter_name] = quarter_data_dict
     return history_quarter_value
 
@@ -186,7 +192,7 @@ def get_pre_year_quarter_data():
         else:
             history_quarter_value['sum_' + quarter_name] = sum_quarter_data_dict
             quarter_data_dict = get_sum_quarter_data(str(quarter['y']).zfill(3), str(quarter['m']-1).zfill(2), code)
-            quarter_data_dict = {key: round(sum_quarter_data_dict[key] - quarter_data_dict[key], 2) for key in sum_quarter_data_dict if isinstance(quarter_data_dict[key], float) and isinstance(sum_quarter_data_dict[key], float)}
+            quarter_data_dict = {key: round(sum_quarter_data_dict[key] - quarter_data_dict[key], 2) if isinstance(quarter_data_dict[key], float) and isinstance(sum_quarter_data_dict[key], float) else quarter_data_dict[key] for key in sum_quarter_data_dict}
             history_quarter_value[quarter_name] = quarter_data_dict
     return history_quarter_value
 
