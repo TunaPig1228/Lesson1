@@ -189,6 +189,7 @@ def get_pre_year_quarter_data():
         sum_quarter_data_dict = get_sum_quarter_data(str(quarter['y']).zfill(3), str(quarter['m']).zfill(2), code)
         if quarter['m'] == 1:
             history_quarter_value[quarter_name] = sum_quarter_data_dict
+            history_quarter_value['sum_' + quarter_name] = sum_quarter_data_dict
         else:
             history_quarter_value['sum_' + quarter_name] = sum_quarter_data_dict
             quarter_data_dict = get_sum_quarter_data(str(quarter['y']).zfill(3), str(quarter['m']-1).zfill(2), code)
