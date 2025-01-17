@@ -71,7 +71,7 @@ def fast_data():
     query = request.form.get('query')
     query = find_and_convert_numbers(query)
     genai.configure(api_key = 'AIzaSyCv7-MKV9NqO6DqRXYu4GXysWeSnGBEijk')
-    model = genai.GenerativeModel('gemini-pro')
+    model = genai.GenerativeModel('gemini-1.5-flash')
     response = model.generate_content(query)
     data_json = response.text
     # 处理接收到的数据（这里简单地将数据返回）
