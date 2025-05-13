@@ -3,6 +3,7 @@ import google.generativeai as genai
 import re
 import requests
 from lxml import html
+import random
 
 def is_float(string):
     try:
@@ -71,7 +72,9 @@ def fast_data():
     query = request.form.get('query')
     query = find_and_convert_numbers(query)
     genai.configure(api_key = 'AIzaSyCv7-MKV9NqO6DqRXYu4GXysWeSnGBEijk')
-    model = genai.GenerativeModel('gemini-2.0-flash-lite')
+    models = ['gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-2.0-flash-lite']
+    selected_model = random.choice(models)
+    model = genai.GenerativeModel(selected_model)
     response = model.generate_content(query)
     data_json = response.text
     # 处理接收到的数据（这里简单地将数据返回）
