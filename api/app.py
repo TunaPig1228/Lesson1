@@ -72,7 +72,7 @@ def fast_data():
     query = request.form.get('query')
     query = find_and_convert_numbers(query)
     genai.configure(api_key = 'AIzaSyCv7-MKV9NqO6DqRXYu4GXysWeSnGBEijk')
-    models = ['gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-2.0-flash-lite']
+    models = ["gemini-2.0-flash", "gemini-2.0-flash-lite", "gemini-1.5-flash", "gemini-1.5-pro", "gemini-1.0-pro"]
     selected_model = random.choice(models)
     model = genai.GenerativeModel(selected_model)
     response = model.generate_content(query)
