@@ -68,16 +68,26 @@ app = Flask(__name__)
 
 @app.route('/fast_data',methods=["POST"])
 def fast_data():
-    # 从请求中获取 JSON 数据
+    # 從請求中獲取 JSON 數據
     query = request.form.get('query')
     query = find_and_convert_numbers(query)
-    genai.configure(api_key = 'AIzaSyCv7-MKV9NqO6DqRXYu4GXysWeSnGBEijk')
-    models = ["gemini-2.0-flash", "gemini-2.0-flash-lite", "gemini-1.5-flash", "gemini-1.5-pro", "gemini-1.0-pro"]
+
+    # 定義你的所有 API 金鑰
+    api_keys = [
+        'AIzaSyCUsfKFT39cBGXLQLT5GMqt6r6OvwrcAbs',
+        'AIzaSyCv7-MKV9NqO6DqRXYu4GXysWeSnGBEijk'
+    ]
+
+    # 隨機選擇一個 API 金鑰
+    selected_api_key = random.choice(api_keys)
+    genai.configure(api_key=selected_api_key)
+
+    models = ["gemini-2.5-flash-preview-05-20", "gemini-2.5-pro-preview-06-05", "gemini-2.0-flash", "gemini-2.0-flash-lite", "gemini-1.5-flash", "gemini-1.5-pro"]
     selected_model = random.choice(models)
     model = genai.GenerativeModel(selected_model)
     response = model.generate_content(query)
     data_json = response.text
-    # 处理接收到的数据（这里简单地将数据返回）
+    # 處理接收到的數據（這裡簡單地將數據返回）
     return data_json
 
 def get_sum_quarter_data(yy, mm, code):
