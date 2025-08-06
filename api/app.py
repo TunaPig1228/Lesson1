@@ -85,7 +85,7 @@ def fast_data():
     selected_api_key = random.choice(api_keys)
     genai.configure(api_key=selected_api_key)
 
-    models = ["gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-2.0-flash", "gemini-2.0-flash-lite"]
+    models = ["gemini-2.5-flash", "gemini-2.5-flash-lite"]
     selected_model = random.choice(models)
     model = genai.GenerativeModel(selected_model)
     response = model.generate_content(query)
