@@ -76,15 +76,16 @@ def fast_data():
     api_keys = [
         # 'AIzaSyCUsfKFT39cBGXLQLT5GMqt6r6OvwrcAbs',
         # 'AIzaSyCv7-MKV9NqO6DqRXYu4GXysWeSnGBEijk',
-        'AIzaSyB1lOnfX3GZcMPN0dMukt_X_v57YaaAZzQ',
-        'AIzaSyB2fajDAR-ytjynki6dxW71Xy-9NCbGFfs'
+        # 'AIzaSyB1lOnfX3GZcMPN0dMukt_X_v57YaaAZzQ',
+        'AIzaSyB2fajDAR-ytjynki6dxW71Xy-9NCbGFfs',
+        'AIzaSyBPTJafzWk7kppzitLXaIoHoGOLgS9LV9M'
     ]
 
     # 隨機選擇一個 API 金鑰
     selected_api_key = random.choice(api_keys)
     genai.configure(api_key=selected_api_key)
 
-    models = ["gemini-2.5-flash-preview-05-20", "gemini-2.5-pro-preview-06-05", "gemini-2.0-flash", "gemini-2.0-flash-lite", "gemini-1.5-flash", "gemini-1.5-pro"]
+    models = ["gemini-2.5-pro", "gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-2.0-flash", "gemini-2.0-flash-lite"]
     selected_model = random.choice(models)
     model = genai.GenerativeModel(selected_model)
     response = model.generate_content(query)
