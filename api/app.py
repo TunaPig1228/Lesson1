@@ -1,5 +1,6 @@
 from flask import Flask, request
-import google.generativeai as genai
+from google import genai
+import os
 import re
 import requests
 from lxml import html
@@ -84,12 +85,18 @@ def fast_data():
 
     # 隨機選擇一個 API 金鑰
     selected_api_key = random.choice(api_keys)
-    genai.configure(api_key=selected_api_key)
-
+    os.environ['GEMINI_API_KEY'] = selected_api_key
+    
+    client = genai.Client()
+    
     models = ["gemini-2.5-flash", "gemini-2.5-flash-lite"]
     selected_model = random.choice(models)
-    model = genai.GenerativeModel(selected_model)
-    response = model.generate_content(query)
+    
+    response = client.models.generate_content(
+        model=selected_model,
+        contents=query
+    )
+    
     data_json = response.text
     # 處理接收到的數據（這裡簡單地將數據返回）
     return data_json
@@ -217,3 +224,7 @@ def get_pre_year_quarter_data():
 @app.route('/',methods=["GET"])
 def test():
     return 'success'
+
+if __name__ == '__main__':
+    # 開發時可開 debug，並綁定到所有介面方便測試
+    app.run(host='0.0.0.0', port=5000, debug=True)
