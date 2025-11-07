@@ -224,7 +224,3 @@ def get_pre_year_quarter_data():
 @app.route('/',methods=["GET"])
 def test():
     return 'success'
-
-if __name__ == '__main__':
-    # 開發時可開 debug，並綁定到所有介面方便測試
-    app.run(host='0.0.0.0', port=5000, debug=True)
