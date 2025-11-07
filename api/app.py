@@ -75,14 +75,15 @@ def fast_data():
 
     # 定義你的所有 API 金鑰
     api_keys = [
-        'AIzaSyDkGBtCI6-mKX8-AlG3PjOBP1qpD6H_UZ0', # 變電組
-        'AIzaSyDOEoesfwF4_A3XRX1IshXNtnQvAfT0zd0', # EMS
-        'AIzaSyB1lOnfX3GZcMPN0dMukt_X_v57YaaAZzQ', # (藍)邱比特
-        'AIzaSyCSEcDkndHFomYWjkq49XX7Tw1aFg042E0', # 本帳
-        'AIzaSyBPTJafzWk7kppzitLXaIoHoGOLgS9LV9M', # 梁山伯
-        'AIzaSyCUsfKFT39cBGXLQLT5GMqt6r6OvwrcAbs' # 運轉組
-        'AIzaSyDI5tcz_rnBCByUOvok3XxZH0HtDYtHcvo', # 勇勝
-        'AIzaSyB2fajDAR-ytjynki6dxW71Xy-9NCbGFfs', # (紅)邱比特
+        'AIzaSyDkGBtCI6-mKX8-AlG3PjOBP1qpD6H_UZ0', # 變電組 測試ok
+        'AIzaSyDOEoesfwF4_A3XRX1IshXNtnQvAfT0zd0', # EMS 測試ok
+        'AIzaSyCSEcDkndHFomYWjkq49XX7Tw1aFg042E0', # 本帳 測試ok
+
+        # 'AIzaSyCUsfKFT39cBGXLQLT5GMqt6r6OvwrcAbs' # 運轉組 用量過大
+        # 'AIzaSyBPTJafzWk7kppzitLXaIoHoGOLgS9LV9M', # 梁山伯 失敗2
+        # 'AIzaSyB1lOnfX3GZcMPN0dMukt_X_v57YaaAZzQ', # (藍)邱比特 失敗2
+        # 'AIzaSyDI5tcz_rnBCByUOvok3XxZH0HtDYtHcvo', # 勇勝 失敗4
+        # 'AIzaSyB2fajDAR-ytjynki6dxW71Xy-9NCbGFfs', # (紅)邱比特 失敗2
     ]
 
     # 隨機選擇一個 API 金鑰
