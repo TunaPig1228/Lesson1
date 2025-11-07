@@ -76,10 +76,10 @@ def fast_data():
     api_keys = [
         # 'AIzaSyCUsfKFT39cBGXLQLT5GMqt6r6OvwrcAbs',
         # 'AIzaSyCv7-MKV9NqO6DqRXYu4GXysWeSnGBEijk',
-        # 'AIzaSyB1lOnfX3GZcMPN0dMukt_X_v57YaaAZzQ',
-        'AIzaSyB2fajDAR-ytjynki6dxW71Xy-9NCbGFfs',
-        'AIzaSyBPTJafzWk7kppzitLXaIoHoGOLgS9LV9M',
-        'AIzaSyCUsfKFT39cBGXLQLT5GMqt6r6OvwrcAbs'
+        'AIzaSyB1lOnfX3GZcMPN0dMukt_X_v57YaaAZzQ',
+        'AIzaSyCSEcDkndHFomYWjkq49XX7Tw1aFg042E0',
+        # 'AIzaSyBPTJafzWk7kppzitLXaIoHoGOLgS9LV9M',
+        # 'AIzaSyCUsfKFT39cBGXLQLT5GMqt6r6OvwrcAbs'
     ]
 
     # 隨機選擇一個 API 金鑰
