@@ -75,7 +75,7 @@ def fast_data():
 
     # 定義你的所有 API 金鑰
     api_keys = [
-        'AIzaSyDkGBtCI6-mKX8-AlG3PjOBP1qpD6H_UZ0', # 變電組 測試ok
+        'AIzaSyDmcWzT3a-BArC7haBW-ZN0G7PA8JIFFPk', # 變電組 測試ok
         'AIzaSyDOEoesfwF4_A3XRX1IshXNtnQvAfT0zd0', # EMS 測試ok
         'AIzaSyCSEcDkndHFomYWjkq49XX7Tw1aFg042E0', # 本帳 測試ok
 
