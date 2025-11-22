@@ -75,9 +75,10 @@ def fast_data():
 
     # 定義你的所有 API 金鑰
     api_keys = [
-        'AIzaSyDmcWzT3a-BArC7haBW-ZN0G7PA8JIFFPk', # 變電組 測試ok
-        'AIzaSyDOEoesfwF4_A3XRX1IshXNtnQvAfT0zd0', # EMS 測試ok
-        'AIzaSyCSEcDkndHFomYWjkq49XX7Tw1aFg042E0', # 本帳 測試ok
+        os.environ.get("GMKEY_D00502"), # 變電組 測試ok
+        os.environ.get("GMKEY_EMS"), # EMS 測試ok
+        os.environ.get("GMKEY_D00505"), # 運轉組 測試ok
+        os.environ.get("GMKEY_CHASEPROGRAM"), # 本帳 測試ok
 
         # 'AIzaSyCUsfKFT39cBGXLQLT5GMqt6r6OvwrcAbs' # 運轉組 用量過大
         # 'AIzaSyBPTJafzWk7kppzitLXaIoHoGOLgS9LV9M', # 梁山伯 失敗2
