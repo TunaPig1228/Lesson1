@@ -93,7 +93,7 @@ def fast_data():
     
     client = genai.Client()
     
-    models = ["gemini-2.5-flash"]
+    models = ["gemini-2.5-flash-lite"]
     selected_model = random.choice(models)
     
     response = client.models.generate_content(
